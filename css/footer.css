@@ -1,0 +1,30 @@
+footer {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.pad-row {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.pad-block {
+  display: flex;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: #d3d6da;
+  width: 50px;
+  height: 60px;
+}
+
+.pad-block.long {
+  width: 80px;
+}
