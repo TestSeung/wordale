@@ -5,7 +5,9 @@ header {
   margin-bottom: 10px;
 }
 .menu-bar__title {
+  padding-left: 50px;
   font-weight: bold;
+  font-size: 30px;
 }
 .menu-bar {
   display: flex;

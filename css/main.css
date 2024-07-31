@@ -5,6 +5,9 @@ main {
   align-items: center;
   gap: 5px;
 }
+#timer {
+  font-weight: bold;
+}
 
 .board-row {
   display: flex;
