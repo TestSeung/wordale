@@ -26,22 +26,64 @@ function appStart() {
 
   const handleEnterKey = () => {
     let 맞은_갯수 = 0;
+
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index='${attempts}${i}']`
       );
       const 입력한_글자 = block.innerText;
+      const pad = document.querySelector(
+        `.pad-block[data-key='${입력한_글자}']`
+      );
       const 정답_글자 = 정답[i];
+
       if (입력한_글자 === 정답_글자) {
         맞은_갯수++;
         block.style.background = "#6AAA64";
-      } else if (정답.includes(입력한_글자)) block.style.background = "#C9B458";
-      else block.style.background = "#787C7E";
-
+        pad.style.background = "#6AAA64";
+      } else if (정답.includes(입력한_글자)) {
+        block.style.background = "#C9B458";
+        if (pad.style.background !== "rgb(106, 170, 100)") {
+          pad.style.background = "#C9B458";
+        }
+      } else {
+        block.style.background = "#787C7E";
+      }
       block.style.color = "white";
     }
-    if (맞은_갯수 === 5) gameover();
-    else nextLine();
+
+    if (맞은_갯수 === 5) {
+      anime(attempts, 2000, "linear", "both", Infinity);
+      gameover();
+    } else {
+      anime(attempts, 500, "linear", "both", 1);
+      nextLine();
+    }
+  };
+
+  const anime = (attempts, Duration, Easing, Fill, iter) => {
+    for (let i = 0; i < 5; i++) {
+      const block = document.querySelector(
+        `.board-block[data-index='${attempts}${i}']`
+      );
+      block.animate(
+        // keyframes
+        [
+          { transform: "translateX(0px)", opacity: 1 },
+          { transform: "translateX(-100px)", opacity: 0 },
+          { transform: "translateX(0px)", opacity: 1 },
+          { transform: "translateX(100px)", opacity: 0 },
+          { transform: "translateX(0px)", opacity: 1 },
+        ],
+        // options
+        {
+          duration: Duration,
+          easing: Easing,
+          fill: Fill,
+          iterations: iter,
+        }
+      );
+    }
   };
 
   const handleBackspace = () => {
@@ -70,6 +112,24 @@ function appStart() {
       index++;
     }
   };
+
+  const eventClick = (event) => {
+    const key = event.target.innerText;
+    const keyCode = key.charCodeAt(0);
+    const thisBlock = document.querySelector(
+      `.board-block[data-index='${attempts}${index}']`
+    );
+    if (key === "←") {
+      handleBackspace();
+    } else if (index === 5) {
+      if (key === "ENTER") handleEnterKey();
+      else return;
+    } else if (65 <= keyCode && keyCode <= 90) {
+      thisBlock.innerText = key;
+      index++;
+    }
+  };
+
   const startTimer = () => {
     const 시작_시간 = new Date();
 
@@ -86,5 +146,6 @@ function appStart() {
   };
   startTimer();
   window.addEventListener("keydown", handleKeydown);
+  window.addEventListener("click", eventClick);
 }
 appStart();
