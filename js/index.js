@@ -53,15 +53,15 @@ function appStart() {
     }
 
     if (맞은_갯수 === 5) {
-      anime(attempts, 2000, "linear", "both", Infinity);
+      anime(2000, "linear", "both", Infinity);
       gameover();
     } else {
-      anime(attempts, 500, "linear", "both", 1);
+      anime(500, "linear", "both", 1);
       nextLine();
     }
   };
 
-  const anime = (attempts, Duration, Easing, Fill, iter) => {
+  const anime = (Duration, Easing, Fill, iter) => {
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index='${attempts}${i}']`
@@ -146,6 +146,10 @@ function appStart() {
   };
   startTimer();
   window.addEventListener("keydown", handleKeydown);
-  window.addEventListener("click", eventClick);
+  //외부클릭방지
+  const Btn = document.querySelectorAll(".pad-block");
+  Btn.forEach((element) => {
+    element.addEventListener("mouseup", eventClick);
+  });
 }
 appStart();
