@@ -13,7 +13,8 @@ function appStart() {
     document.body.appendChild(div);
   };
   const nextLine = () => {
-    if (attempts === 6) return gameover();
+    console.log(attempts);
+    if (attempts === 5) return gameover();
     attempts++;
     index = 0;
   };
