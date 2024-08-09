@@ -1,4 +1,4 @@
-const 정답 = "GHOST";
+//서버에서 정답을 설정
 
 let attempts = 0;
 let index = 0;
@@ -25,8 +25,11 @@ function appStart() {
     clearInterval(timer);
   };
 
-  const handleEnterKey = () => {
+  const handleEnterKey = async () => {
     let 맞은_갯수 = 0;
+    //서버에 요청하는 비동기 로직
+    const 응답 = await fetch("/answer");
+    const 정답 = await 응답.json();
 
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
